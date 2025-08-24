@@ -1,6 +1,10 @@
 from fractions import Fraction
 
 LANGUAGE = "Chinese"
+OUTPUT_TO_FILE = True
+FILE_NAME = "output.md"
+LATEX_MARK = "\\[", "\\]", "\\(", "\\)"
+WAIT_AT_THE_END = True
 
 
 def solve_linear_system(coefficients, constants):
@@ -63,4 +67,17 @@ if __name__ == '__main__':
     if res[0] == "+":
         res = res[1:]
     print(res)
-    pass
+    if OUTPUT_TO_FILE:
+        with open(FILE_NAME, "a") as f:
+            f.write({"Chinese": "注意到 ", "English": "We have noticed that "}[LANGUAGE])
+            f.write(LATEX_MARK[2] + "f(x)=" + res + LATEX_MARK[3])
+            f.write({"Chinese": " 满足要求。", "English": " satisfies the requirement."}[LANGUAGE])
+            f.write("\n")
+            f.write({"Chinese": "当 ", "English": "When "}[LANGUAGE])
+            f.write(LATEX_MARK[0] + "x=" + ",".join([str(i) for i in range(1, length + 1)]) + LATEX_MARK[1])
+            f.write({"Chinese": " 时，有 ", "English": ", "}[LANGUAGE])
+            f.write(LATEX_MARK[2] + "f(x)=" + ",".join([str(i) for i in sequence]) + LATEX_MARK[3])
+            f.write({"Chinese": "。", "English": "."}[LANGUAGE])
+            f.write("\n")
+    if WAIT_AT_THE_END:
+        input()
